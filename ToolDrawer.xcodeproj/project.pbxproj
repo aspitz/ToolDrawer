@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		791AACE613D3290500ADD2D2 /* ToolDrawerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 791AACE513D3290500ADD2D2 /* ToolDrawerView.m */; };
 		79745BA113D31E800065EF70 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79745BA013D31E800065EF70 /* UIKit.framework */; };
 		79745BA313D31E800065EF70 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79745BA213D31E800065EF70 /* Foundation.framework */; };
 		79745BA513D31E800065EF70 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79745BA413D31E800065EF70 /* CoreGraphics.framework */; };
@@ -15,10 +16,11 @@
 		79745BB113D31E800065EF70 /* ToolDrawerAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 79745BB013D31E800065EF70 /* ToolDrawerAppDelegate.m */; };
 		79745BB413D31E800065EF70 /* ToolDrawerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79745BB313D31E800065EF70 /* ToolDrawerViewController.m */; };
 		79745BB713D31E800065EF70 /* ToolDrawerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79745BB513D31E800065EF70 /* ToolDrawerViewController.xib */; };
-		79745BBF13D31EC60065EF70 /* ToolDrawerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 79745BBE13D31EC60065EF70 /* ToolDrawerView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		791AACE413D3290500ADD2D2 /* ToolDrawerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolDrawerView.h; sourceTree = SOURCE_ROOT; };
+		791AACE513D3290500ADD2D2 /* ToolDrawerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolDrawerView.m; sourceTree = SOURCE_ROOT; };
 		79745B9C13D31E800065EF70 /* ToolDrawer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToolDrawer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		79745BA013D31E800065EF70 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		79745BA213D31E800065EF70 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -32,8 +34,6 @@
 		79745BB213D31E800065EF70 /* ToolDrawerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToolDrawerViewController.h; sourceTree = "<group>"; };
 		79745BB313D31E800065EF70 /* ToolDrawerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ToolDrawerViewController.m; sourceTree = "<group>"; };
 		79745BB613D31E800065EF70 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ToolDrawerViewController.xib; sourceTree = "<group>"; };
-		79745BBD13D31EC60065EF70 /* ToolDrawerView.h */ = {isa = PBXFileReference; fileEncoding = 4; path = ToolDrawerView.h; sourceTree = "<group>"; };
-		79745BBE13D31EC60065EF70 /* ToolDrawerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolDrawerView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,8 +85,8 @@
 				79745BB213D31E800065EF70 /* ToolDrawerViewController.h */,
 				79745BB313D31E800065EF70 /* ToolDrawerViewController.m */,
 				79745BB513D31E800065EF70 /* ToolDrawerViewController.xib */,
-				79745BBD13D31EC60065EF70 /* ToolDrawerView.h */,
-				79745BBE13D31EC60065EF70 /* ToolDrawerView.m */,
+				791AACE413D3290500ADD2D2 /* ToolDrawerView.h */,
+				791AACE513D3290500ADD2D2 /* ToolDrawerView.m */,
 				79745BA713D31E800065EF70 /* Supporting Files */,
 			);
 			path = ToolDrawer;
@@ -168,7 +168,7 @@
 				79745BAD13D31E800065EF70 /* main.m in Sources */,
 				79745BB113D31E800065EF70 /* ToolDrawerAppDelegate.m in Sources */,
 				79745BB413D31E800065EF70 /* ToolDrawerViewController.m in Sources */,
-				79745BBF13D31EC60065EF70 /* ToolDrawerView.m in Sources */,
+				791AACE613D3290500ADD2D2 /* ToolDrawerView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,6 +280,7 @@
 				79745BBC13D31E800065EF70 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
