@@ -49,38 +49,38 @@
         open = NO;
 		// Add the chevron button to the view
         [self createTabButton];
-
+        
 		// Make sure that the background is clear
 		self.opaque = NO;
-
+        
         // Capture the corner and direction of the popup toolbar
         self.verticalCorner = vCorner;
         self.horizontalCorner = hCorner;
         self.direction = aDirection;
-        		
+        
 		// Set the period after which the toolbar should fade
 		self.durationToFade = 5.0;
 		// Set the per item animation duration
 		self.perItemAnimationDuration = 0.3;
-
+        
 		// Start the fade timer
         [self resetFadeTimer];
     }
-
+    
     return self;
 }
 
 // Draw the white boundry of the popup toolbar
 - (void)drawRect:(CGRect)rect {
     CGContextRef ctx = UIGraphicsGetCurrentContext();
-    CGRect iRect = CGRectInset(rect, 0, 0);
+    CGRect iRect = CGRectInset(rect, 1, 1);
     CGFloat tabRadius = 35.0;
     
     // For debug purposes - Draw a red box all the way around the rect
     // CGContextSetStrokeColorWithColor(ctx, [UIColor redColor].CGColor);
     // CGContextStrokeRect(ctx, rect);
     
-    CGContextSetStrokeColorWithColor(ctx, [UIColor blackColor].CGColor);
+    CGContextSetStrokeColorWithColor(ctx, [UIColor whiteColor].CGColor);
     CGContextSetLineWidth(ctx, 1.0);
     
     CGContextBeginPath(ctx);
@@ -91,24 +91,6 @@
     CGContextAddLineToPoint(ctx, iRect.size.width, iRect.origin.y);
     CGContextAddLineToPoint(ctx, iRect.origin.x, iRect.origin.y);
     CGContextStrokePath(ctx);
-
-    CGGradientRef myGradient;
-    CGColorSpaceRef myColorspace;
-    size_t num_locations = 2;
-    CGFloat locations[2] = { 0.0, 1.0 };
-    CGFloat components[8] = { 0.0, 0.0, 0.0, 0.65,  // Start color
-                              0.0, 0.0, 0.0, 0.95 }; // End color
-
-    myColorspace = CGColorSpaceCreateDeviceRGB();
-    myGradient = CGGradientCreateWithColorComponents (myColorspace, components, locations, num_locations);
-
-    CGPoint startPoint = CGPointMake(iRect.origin.x,iRect.origin.y), 
-            endPoint = CGPointMake(iRect.origin.x, iRect.origin.y + iRect.size.height);
-    CGContextSaveGState(ctx);
-    CGContextClip(ctx);
-    CGContextClipToRect(ctx,iRect);
-    CGContextDrawLinearGradient(ctx, myGradient, startPoint, endPoint, 0);
-    CGContextRestoreGState(ctx);
 }
 
 #pragma mark
@@ -117,7 +99,7 @@
 - (void)createTabButton{
     handleButtonImage = [self createTabButtonImageWithFillColor:[UIColor colorWithWhite:1.0 alpha:0.25]];
     handleButtonBlinkImage = [self createTabButtonImageWithFillColor:[UIColor whiteColor]];
-                            
+    
     self.handleButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.handleButton.frame = CGRectMake(0.0, 0.0, 50.0, 50.0);
     self.handleButton.center = CGPointMake(25.0, 25.0);
@@ -132,7 +114,7 @@
     UIGraphicsBeginImageContext(CGSizeMake(24.0, 24.0));
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     
-    CGContextSetStrokeColorWithColor(ctx, [UIColor blackColor].CGColor);
+    CGContextSetStrokeColorWithColor(ctx, [UIColor whiteColor].CGColor);
     
     CGContextSetFillColorWithColor(ctx, fillColor.CGColor);
     CGContextSetLineWidth(ctx, 2.0);
@@ -147,7 +129,7 @@
     
     // Stroke Chevron
     CGFloat chevronOffset = 4.0;
-
+    
     CGContextBeginPath(ctx);
     CGContextMoveToPoint(ctx, 12.0 - chevronOffset, 12.0 - chevronOffset);
     CGContextAddLineToPoint(ctx, 12.0 + chevronOffset, 12.0);
@@ -171,7 +153,7 @@
         self.handleButton.imageView.image = handleButtonBlinkImage;
     }
 }
- 
+
 - (void)resetTabButton{
     if (handleButtonBlinkTimer != nil){
         if ([handleButtonBlinkTimer isValid]){
@@ -186,10 +168,10 @@
 
 - (void)blinkTabButton{
     handleButtonBlinkTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
-                                                           target:self
-                                                         selector:@selector(flipTabButtonImage:)
-                                                         userInfo:nil
-                                                          repeats:YES];
+                                                              target:self
+                                                            selector:@selector(flipTabButtonImage:)
+                                                            userInfo:nil
+                                                             repeats:YES];
 }
 
 #pragma mark
@@ -201,7 +183,7 @@
         [UIView animateWithDuration:0.5 
 							  delay:0.0 
 							options:UIViewAnimationOptionCurveLinear | UIViewAnimationOptionAllowUserInteraction
-						 animations:^{ self.alpha = 0.5; }
+						 animations:^{ self.alpha = 0.2; }
 						 completion:nil];
     }
 }
@@ -213,22 +195,22 @@
 
 - (void)resetFadeTimer{
     [self resetTabButton];
-
+    
     // Make sure to clear out the timer if its running
     if (toolDrawerFadeTimer != nil){
         if ([toolDrawerFadeTimer isValid]){
             [toolDrawerFadeTimer invalidate];
         }
-    
+        
         toolDrawerFadeTimer = nil;
     }
     
     // Start the timer again
     toolDrawerFadeTimer = [NSTimer scheduledTimerWithTimeInterval:self.durationToFade
-                                                        target:self
-                                                      selector:@selector(fadeAway:)
-                                                      userInfo:nil
-                                                       repeats:NO];
+                                                           target:self
+                                                         selector:@selector(fadeAway:)
+                                                         userInfo:nil
+                                                          repeats:NO];
 }
 
 #pragma mark
@@ -237,18 +219,18 @@
 - (UIButton *)appendItem:(NSString *)imageName{    
     // Load source image / mask from file
     UIImage *maskImage = [UIImage imageNamed:imageName];
-     
+    
     // Start a new image context
     UIGraphicsBeginImageContext(maskImage.size);
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     CGContextTranslateCTM(ctx, 0.0, maskImage.size.height);
     CGContextScaleCTM(ctx, 1.0, -1.0);
-    CGContextSetFillColorWithColor(ctx, [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3].CGColor);
+    CGContextSetFillColorWithColor(ctx, [UIColor whiteColor].CGColor);
     CGContextClipToMask(ctx, CGRectMake(0.0, 0.0, maskImage.size.width, maskImage.size.height), maskImage.CGImage);
     CGContextFillRect(ctx, CGRectMake(0.0, 0.0, maskImage.size.width, maskImage.size.height));
     UIImage *finalImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-
+    
     return [self appendImage:finalImage];
 }
 
@@ -261,24 +243,22 @@
     return button;
 }
 
-#define BUTTON_WIDTH 50.0f
-
 - (void)appendButton:(UIButton *)button{    
     int itemCount = self.subviews.count;
-
+    
     CGRect bounds = self.bounds;
-    bounds.size.width += BUTTON_WIDTH;
+    bounds.size.width += 50.0;
     self.bounds = bounds;
     
-    button.frame = CGRectMake(0.0, 0.0, BUTTON_WIDTH, 50.0);
-    button.center = CGPointMake(BUTTON_WIDTH / 2.0 + (BUTTON_WIDTH * (itemCount - 1)), 25.0);
+    button.frame = CGRectMake(0.0, 0.0, 50.0, 50.0);
+    button.center = CGPointMake(25.0 + (50.0 * (itemCount - 1)), 25.0);
     button.autoresizingMask = UIViewAutoresizingFlexibleRightMargin;
     button.transform = self.transform;
-
+    
     [button addTarget:self action:@selector(resetFading) forControlEvents:UIControlEventTouchDown];
-
+    
     [self addSubview:button];
-
+    
     if (self.superview != nil){
         [self computePositions];
     }
@@ -349,7 +329,7 @@
     
     openPosition = CGPointApplyAffineTransform(openPosition, positionTransform);
     closePosition = CGPointApplyAffineTransform(closePosition, positionTransform);
-
+    
     self.center = closePosition;
 }
 
