@@ -73,14 +73,14 @@
 // Draw the white boundry of the popup toolbar
 - (void)drawRect:(CGRect)rect {
     CGContextRef ctx = UIGraphicsGetCurrentContext();
-    CGRect iRect = CGRectInset(rect, 1, 1);
+    CGRect iRect = CGRectInset(rect, 0, 0);
     CGFloat tabRadius = 35.0;
     
     // For debug purposes - Draw a red box all the way around the rect
     // CGContextSetStrokeColorWithColor(ctx, [UIColor redColor].CGColor);
     // CGContextStrokeRect(ctx, rect);
     
-    CGContextSetStrokeColorWithColor(ctx, [UIColor whiteColor].CGColor);
+    CGContextSetStrokeColorWithColor(ctx, [UIColor blackColor].CGColor);
     CGContextSetLineWidth(ctx, 1.0);
     
     CGContextBeginPath(ctx);
@@ -91,6 +91,24 @@
     CGContextAddLineToPoint(ctx, iRect.size.width, iRect.origin.y);
     CGContextAddLineToPoint(ctx, iRect.origin.x, iRect.origin.y);
     CGContextStrokePath(ctx);
+
+    CGGradientRef myGradient;
+    CGColorSpaceRef myColorspace;
+    size_t num_locations = 2;
+    CGFloat locations[2] = { 0.0, 1.0 };
+    CGFloat components[8] = { 0.0, 0.0, 0.0, 0.65,  // Start color
+                              0.0, 0.0, 0.0, 0.95 }; // End color
+
+    myColorspace = CGColorSpaceCreateDeviceRGB();
+    myGradient = CGGradientCreateWithColorComponents (myColorspace, components, locations, num_locations);
+
+    CGPoint startPoint = CGPointMake(iRect.origin.x,iRect.origin.y), 
+            endPoint = CGPointMake(iRect.origin.x, iRect.origin.y + iRect.size.height);
+    CGContextSaveGState(ctx);
+    CGContextClip(ctx);
+    CGContextClipToRect(ctx,iRect);
+    CGContextDrawLinearGradient(ctx, myGradient, startPoint, endPoint, 0);
+    CGContextRestoreGState(ctx);
 }
 
 #pragma mark
@@ -114,7 +132,7 @@
     UIGraphicsBeginImageContext(CGSizeMake(24.0, 24.0));
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     
-    CGContextSetStrokeColorWithColor(ctx, [UIColor whiteColor].CGColor);
+    CGContextSetStrokeColorWithColor(ctx, [UIColor blackColor].CGColor);
     
     CGContextSetFillColorWithColor(ctx, fillColor.CGColor);
     CGContextSetLineWidth(ctx, 2.0);
@@ -183,7 +201,7 @@
         [UIView animateWithDuration:0.5 
 							  delay:0.0 
 							options:UIViewAnimationOptionCurveLinear | UIViewAnimationOptionAllowUserInteraction
-						 animations:^{ self.alpha = 0.2; }
+						 animations:^{ self.alpha = 0.5; }
 						 completion:nil];
     }
 }
@@ -225,7 +243,7 @@
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     CGContextTranslateCTM(ctx, 0.0, maskImage.size.height);
     CGContextScaleCTM(ctx, 1.0, -1.0);
-    CGContextSetFillColorWithColor(ctx, [UIColor whiteColor].CGColor);
+    CGContextSetFillColorWithColor(ctx, [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3].CGColor);
     CGContextClipToMask(ctx, CGRectMake(0.0, 0.0, maskImage.size.width, maskImage.size.height), maskImage.CGImage);
     CGContextFillRect(ctx, CGRectMake(0.0, 0.0, maskImage.size.width, maskImage.size.height));
     UIImage *finalImage = UIGraphicsGetImageFromCurrentImageContext();
@@ -243,15 +261,17 @@
     return button;
 }
 
+#define BUTTON_WIDTH 50.0f
+
 - (void)appendButton:(UIButton *)button{    
     int itemCount = self.subviews.count;
 
     CGRect bounds = self.bounds;
-    bounds.size.width += 50.0;
+    bounds.size.width += BUTTON_WIDTH;
     self.bounds = bounds;
     
-    button.frame = CGRectMake(0.0, 0.0, 50.0, 50.0);
-    button.center = CGPointMake(25.0 + (50.0 * (itemCount - 1)), 25.0);
+    button.frame = CGRectMake(0.0, 0.0, BUTTON_WIDTH, 50.0);
+    button.center = CGPointMake(BUTTON_WIDTH / 2.0 + (BUTTON_WIDTH * (itemCount - 1)), 25.0);
     button.autoresizingMask = UIViewAutoresizingFlexibleRightMargin;
     button.transform = self.transform;
 
