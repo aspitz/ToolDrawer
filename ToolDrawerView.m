@@ -59,7 +59,7 @@
         self.direction = aDirection;
         
 		// Set the period after which the toolbar should fade
-		self.durationToFade = 5.0;
+		self.durationToFade = 15.0;
 		// Set the per item animation duration
 		self.perItemAnimationDuration = 0.3;
         
@@ -156,6 +156,9 @@
     CGContextMoveToPoint(ctx, 12.0 - chevronOffset, 12.0 - chevronOffset);
     CGContextAddLineToPoint(ctx, 12.0 + chevronOffset, 12.0);
     CGContextAddLineToPoint(ctx, 12.0 - chevronOffset, 12.0 + chevronOffset);
+    CGContextAddLineToPoint(ctx, 12.0 - chevronOffset, 12 - chevronOffset);
+    CGContextSetFillColorWithColor(ctx, [UIColor whiteColor].CGColor);
+    CGContextFillPath(ctx);
     CGContextStrokePath(ctx);
     
     UIImage *buttonImage = UIGraphicsGetImageFromCurrentImageContext();
