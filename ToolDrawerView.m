@@ -1,9 +1,9 @@
 
 //
-//  PopupToolbarView.m
+//  ToolDrawerView.m
 //
-//  Created by Ayal Spitz on 10/6/10.
-//  Copyright (c) 2010 MITRE Corp. All rights reserved.
+//  Created by Ayal Spitz on 7/17/11.
+//  Copyright 2011 Ayal Spitz. All rights reserved.
 //
 
 #import "ToolDrawerView.h"
