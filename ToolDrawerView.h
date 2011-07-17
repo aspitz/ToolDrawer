@@ -23,29 +23,25 @@ typedef enum{
 } ToolDrawerDirection;
 
 @interface ToolDrawerView : UIView {
-    NSTimer *toolbarFadeTimer;
+    NSTimer *toolDrawerFadeTimer;
 
     CGPoint openPosition;
     CGPoint closePosition;
 
     CGAffineTransform positionTransform;
     
-    NSTimer *tabButtonBlinkTimer;
-
-    UIButton *tabButton;
-    UIImage *tabButtonImage;
-    UIImage *tabButtonBlinkImage;
+    UIButton *handleButton;
+    UIImage *handleButtonImage;
+    UIImage *handleButtonBlinkImage;
+    NSTimer *handleButtonBlinkTimer;
     
     BOOL open;
-	
-	NSTimeInterval durationToFade;
-	NSTimeInterval perItemAnimationDuration;
 }
 
 @property (assign) ToolDrawerHorizontalCorner horizontalCorner;
 @property (assign) ToolDrawerVerticalCorner verticalCorner;
 @property (assign) ToolDrawerDirection direction;
-@property (nonatomic, retain) UIButton *tabButton;
+@property (nonatomic, retain) UIButton *handleButton;
 
 @property (assign) NSTimeInterval durationToFade;
 @property (assign) NSTimeInterval perItemAnimationDuration;

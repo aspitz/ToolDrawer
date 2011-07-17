@@ -34,7 +34,7 @@
 @synthesize horizontalCorner;
 @synthesize verticalCorner;
 @synthesize direction;
-@synthesize tabButton;
+@synthesize handleButton;
 
 @synthesize durationToFade;
 @synthesize perItemAnimationDuration;
@@ -59,9 +59,9 @@
         self.direction = aDirection;
         		
 		// Set the period after which the toolbar should fade
-		durationToFade = 5.0;
+		self.durationToFade = 5.0;
 		// Set the per item animation duration
-		perItemAnimationDuration = 0.3;
+		self.perItemAnimationDuration = 0.3;
 
 		// Start the fade timer
         [self resetFadeTimer];
@@ -97,16 +97,16 @@
 #pragma mark Tab button creation methods 
 
 - (void)createTabButton{
-    tabButtonImage = [self createTabButtonImageWithFillColor:[UIColor colorWithWhite:1.0 alpha:0.25]];
-    tabButtonBlinkImage = [self createTabButtonImageWithFillColor:[UIColor whiteColor]];
+    handleButtonImage = [self createTabButtonImageWithFillColor:[UIColor colorWithWhite:1.0 alpha:0.25]];
+    handleButtonBlinkImage = [self createTabButtonImageWithFillColor:[UIColor whiteColor]];
                             
-    self.tabButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.tabButton.frame = CGRectMake(0.0, 0.0, 50.0, 50.0);
-    self.tabButton.center = CGPointMake(25.0, 25.0);
-    self.tabButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-    [self.tabButton setImage:tabButtonImage forState:UIControlStateNormal];
-    [self.tabButton addTarget:self action:@selector(updatePosition) forControlEvents:UIControlEventTouchDown];
-    [self addSubview:self.tabButton];
+    self.handleButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.handleButton.frame = CGRectMake(0.0, 0.0, 50.0, 50.0);
+    self.handleButton.center = CGPointMake(25.0, 25.0);
+    self.handleButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    [self.handleButton setImage:handleButtonImage forState:UIControlStateNormal];
+    [self.handleButton addTarget:self action:@selector(updatePosition) forControlEvents:UIControlEventTouchDown];
+    [self addSubview:self.handleButton];
 }
 
 // Draw the cheveron button in either the filled or empty state;
@@ -147,27 +147,27 @@
 #pragma mark Tab button blinking methods
 
 - (void)flipTabButtonImage:(NSTimer*)theTimer{
-    if (self.tabButton.imageView.image == tabButtonBlinkImage){
-        self.tabButton.imageView.image = tabButtonImage;
+    if (self.handleButton.imageView.image == handleButtonBlinkImage){
+        self.handleButton.imageView.image = handleButtonImage;
     } else {
-        self.tabButton.imageView.image = tabButtonBlinkImage;
+        self.handleButton.imageView.image = handleButtonBlinkImage;
     }
 }
  
 - (void)resetTabButton{
-    if (tabButtonBlinkTimer != nil){
-        if ([tabButtonBlinkTimer isValid]){
-            [tabButtonBlinkTimer invalidate];
+    if (handleButtonBlinkTimer != nil){
+        if ([handleButtonBlinkTimer isValid]){
+            [handleButtonBlinkTimer invalidate];
         }
         
-        tabButtonBlinkTimer = nil;
+        handleButtonBlinkTimer = nil;
     }
     
-    self.tabButton.imageView.image = tabButtonImage;
+    self.handleButton.imageView.image = handleButtonImage;
 }
 
 - (void)blinkTabButton{
-    tabButtonBlinkTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
+    handleButtonBlinkTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
                                                            target:self
                                                          selector:@selector(flipTabButtonImage:)
                                                          userInfo:nil
@@ -178,7 +178,7 @@
 #pragma mark Toolbar fading methods
 
 - (void)fadeAway:(NSTimer*)theTimer{
-    toolbarFadeTimer = nil;
+    toolDrawerFadeTimer = nil;
     if (self.alpha == 1.0){
         [UIView animateWithDuration:0.5 
 							  delay:0.0 
@@ -197,16 +197,16 @@
     [self resetTabButton];
 
     // Make sure to clear out the timer if its running
-    if (toolbarFadeTimer != nil){
-        if ([toolbarFadeTimer isValid]){
-            [toolbarFadeTimer invalidate];
+    if (toolDrawerFadeTimer != nil){
+        if ([toolDrawerFadeTimer isValid]){
+            [toolDrawerFadeTimer invalidate];
         }
     
-        toolbarFadeTimer = nil;
+        toolDrawerFadeTimer = nil;
     }
     
     // Start the timer again
-    toolbarFadeTimer = [NSTimer scheduledTimerWithTimeInterval:durationToFade
+    toolDrawerFadeTimer = [NSTimer scheduledTimerWithTimeInterval:self.durationToFade
                                                         target:self
                                                       selector:@selector(fadeAway:)
                                                       userInfo:nil
@@ -285,7 +285,7 @@
     self.transform = CGAffineTransformConcat(directionTransform, scaleTransform);
     
     for(UIView *subview in self.subviews){
-        if (subview != tabButton){
+        if (subview != handleButton){
             subview.transform = CGAffineTransformInvert(self.transform);
         }
     }
@@ -335,7 +335,7 @@
 
 - (void)updatePosition{
     [self resetFadeTimer];
-	NSTimeInterval duration = (self.subviews.count - 1) * perItemAnimationDuration;
+	NSTimeInterval duration = (self.subviews.count - 1) * self.perItemAnimationDuration;
     [UIView animateWithDuration:duration
 						  delay:0.0
 						options:UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAllowUserInteraction
@@ -353,7 +353,7 @@
                              self.alpha = 1.0;
                          }
                          
-                         self.tabButton.transform = CGAffineTransformRotate(self.tabButton.transform, M_PI);
+                         self.handleButton.transform = CGAffineTransformRotate(self.handleButton.transform, M_PI);
                      }
 					 completion:nil];
 }
