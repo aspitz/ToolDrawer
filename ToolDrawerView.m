@@ -59,7 +59,7 @@
         self.direction = aDirection;
         
 		// Set the period after which the toolbar should fade
-		self.durationToFade = 5.0;
+		self.durationToFade = 15.0;
 		// Set the per item animation duration
 		self.perItemAnimationDuration = 0.3;
         
@@ -73,14 +73,14 @@
 // Draw the white boundry of the popup toolbar
 - (void)drawRect:(CGRect)rect {
     CGContextRef ctx = UIGraphicsGetCurrentContext();
-    CGRect iRect = CGRectInset(rect, 1, 1);
+    CGRect iRect = CGRectInset(rect, 0, 0);
     CGFloat tabRadius = 35.0;
     
     // For debug purposes - Draw a red box all the way around the rect
     // CGContextSetStrokeColorWithColor(ctx, [UIColor redColor].CGColor);
     // CGContextStrokeRect(ctx, rect);
     
-    CGContextSetStrokeColorWithColor(ctx, [UIColor whiteColor].CGColor);
+    CGContextSetStrokeColorWithColor(ctx, [UIColor blackColor].CGColor);
     CGContextSetLineWidth(ctx, 1.0);
     
     CGContextBeginPath(ctx);
@@ -90,6 +90,28 @@
     CGContextAddArcToPoint(ctx, iRect.size.width, iRect.size.height, iRect.size.width, iRect.size.height - tabRadius, tabRadius);
     CGContextAddLineToPoint(ctx, iRect.size.width, iRect.origin.y);
     CGContextAddLineToPoint(ctx, iRect.origin.x, iRect.origin.y);
+    
+    CGGradientRef myGradient;
+    CGColorSpaceRef myColorspace;
+    size_t num_locations = 2;
+    CGFloat locations[2] = { 0.0, 1.0 };
+    CGFloat components[8] = { 0.0, 0.0, 0.0, 0.65,  // Start color
+                 0.0, 0.0, 0.0, 0.95 }; // End color
+     
+    myColorspace = CGColorSpaceCreateDeviceRGB();
+    myGradient = CGGradientCreateWithColorComponents (myColorspace, components,
+                                                      locations, num_locations);
+         
+    CGPoint startPoint = CGPointMake(iRect.origin.x,iRect.origin.y), 
+            endPoint = CGPointMake(iRect.origin.x, iRect.origin.y + iRect.size.height);
+    
+    CGContextSaveGState(ctx);
+    CGContextClip(ctx);
+    CGContextClipToRect(ctx,iRect);
+    CGContextDrawLinearGradient(ctx, myGradient, startPoint, endPoint, 0);
+    CGContextRestoreGState(ctx);
+    
+    
     CGContextStrokePath(ctx);
 }
 
@@ -114,7 +136,7 @@
     UIGraphicsBeginImageContext(CGSizeMake(24.0, 24.0));
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     
-    CGContextSetStrokeColorWithColor(ctx, [UIColor whiteColor].CGColor);
+    CGContextSetStrokeColorWithColor(ctx, [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6].CGColor);
     
     CGContextSetFillColorWithColor(ctx, fillColor.CGColor);
     CGContextSetLineWidth(ctx, 2.0);
@@ -134,6 +156,9 @@
     CGContextMoveToPoint(ctx, 12.0 - chevronOffset, 12.0 - chevronOffset);
     CGContextAddLineToPoint(ctx, 12.0 + chevronOffset, 12.0);
     CGContextAddLineToPoint(ctx, 12.0 - chevronOffset, 12.0 + chevronOffset);
+    CGContextAddLineToPoint(ctx, 12.0 - chevronOffset, 12 - chevronOffset);
+    CGContextSetFillColorWithColor(ctx, [UIColor whiteColor].CGColor);
+    CGContextFillPath(ctx);
     CGContextStrokePath(ctx);
     
     UIImage *buttonImage = UIGraphicsGetImageFromCurrentImageContext();
@@ -183,7 +208,7 @@
         [UIView animateWithDuration:0.5 
 							  delay:0.0 
 							options:UIViewAnimationOptionCurveLinear | UIViewAnimationOptionAllowUserInteraction
-						 animations:^{ self.alpha = 0.2; }
+						 animations:^{ self.alpha = 0.5; }
 						 completion:nil];
     }
 }
