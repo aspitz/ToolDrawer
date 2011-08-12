@@ -129,6 +129,7 @@
 		79745B9313D31E800065EF70 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastUpgradeCheck = 0420;
 				ORGANIZATIONNAME = "Ayal Spitz";
 			};
 			buildConfigurationList = 79745B9613D31E800065EF70 /* Build configuration list for PBXProject "ToolDrawer" */;
