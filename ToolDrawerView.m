@@ -133,7 +133,10 @@
 
 // Draw the cheveron button in either the filled or empty state;
 - (UIImage *)createTabButtonImageWithFillColor:(UIColor *)fillColor{
-    UIGraphicsBeginImageContext(CGSizeMake(24.0, 24.0));
+  
+    // Use UIGraphicsBeginImageContextWithOptions(size, NO, 0.0) to take advantage of retina display scale factor
+    // The 0.0 value supplied here is a “magic” number, which sets “the scale factor … to the scale factor of the device’s main screen”
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(24.0, 24.0), NO, 0);
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     
     CGContextSetStrokeColorWithColor(ctx, [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6].CGColor);
