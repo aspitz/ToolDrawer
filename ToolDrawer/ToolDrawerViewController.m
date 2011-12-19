@@ -8,12 +8,12 @@
 //  it under the terms of the GNU General Public License as published by
 //  the Free Software Foundation, either version 3 of the License, or
 //  (at your option) any later version.
-//  
+//
 //  This program is distributed in the hope that it will be useful,
 //  but WITHOUT ANY WARRANTY; without even the implied warranty of
 //  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //  GNU General Public License for more details.
-//  
+//
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
@@ -35,9 +35,9 @@
     [super viewDidLoad];
 
     ToolDrawerView *toolDrawerView;
-    
+
 	UIButton *button;
-	
+
     toolDrawerView = [[ToolDrawerView alloc]initInVerticalCorner:kTopCorner andHorizontalCorner:kLeftCorner moving:kHorizontally];
 	button = [UIButton buttonWithType:UIButtonTypeCustom];
 	[button setTitle:@"A" forState:UIControlStateNormal];
@@ -47,11 +47,11 @@
 	[toolDrawerView appendButton:button];
 	button = [UIButton buttonWithType:UIButtonTypeCustom];
 	[button setTitle:@"C" forState:UIControlStateNormal];
-	[toolDrawerView appendButton:button];    
+	[toolDrawerView appendButton:button];
     [button addTarget:toolDrawerView action:@selector(blinkTabButton) forControlEvents:UIControlEventTouchDown];
     [self.view addSubview:toolDrawerView];
 	[toolDrawerView blinkTabButton];
-    
+
     toolDrawerView = [[ToolDrawerView alloc]initInVerticalCorner:kTopCorner andHorizontalCorner:kRightCorner moving:kVertically];
 	button = [UIButton buttonWithType:UIButtonTypeCustom];
 	[button setTitle:@"A" forState:UIControlStateNormal];
@@ -61,9 +61,9 @@
 	[toolDrawerView appendButton:button];
 	button = [UIButton buttonWithType:UIButtonTypeCustom];
 	[button setTitle:@"C" forState:UIControlStateNormal];
-	[toolDrawerView appendButton:button];    
+	[toolDrawerView appendButton:button];
     [self.view addSubview:toolDrawerView];
-	
+
     toolDrawerView = [[ToolDrawerView alloc]initInVerticalCorner:kBottomCorner andHorizontalCorner:kLeftCorner moving:kVertically];
 	button = [UIButton buttonWithType:UIButtonTypeCustom];
 	[button setTitle:@"A" forState:UIControlStateNormal];
@@ -73,9 +73,9 @@
 	[toolDrawerView appendButton:button];
 	button = [UIButton buttonWithType:UIButtonTypeCustom];
 	[button setTitle:@"C" forState:UIControlStateNormal];
-	[toolDrawerView appendButton:button];    
+	[toolDrawerView appendButton:button];
     [self.view addSubview:toolDrawerView];
-	
+
     toolDrawerView = [[ToolDrawerView alloc]initInVerticalCorner:kBottomCorner andHorizontalCorner:kRightCorner moving:kHorizontally];
     [self.view addSubview:toolDrawerView];
 	button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -86,7 +86,7 @@
 	[toolDrawerView appendButton:button];
 	button = [UIButton buttonWithType:UIButtonTypeCustom];
 	[button setTitle:@"C" forState:UIControlStateNormal];
-	[toolDrawerView appendButton:button];    
+	[toolDrawerView appendButton:button];
 }
 
 - (void)viewDidUnload
