@@ -1,6 +1,6 @@
 ## ToolbarView
 
-Accessible toolbar for tools, buttons, etc, 
+Accessible toolbar for tools, buttons, etc,
 
 The software is licensed under LGPLv3.0. Please feel free to use it in your application.
 
